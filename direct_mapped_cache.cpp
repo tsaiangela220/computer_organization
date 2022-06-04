@@ -9,7 +9,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
     int hit_num = 0;
     
     /*write your code HERE*/
-    
+    printf("in direct_mapped\n");
     
     
     
