@@ -28,10 +28,10 @@ float direct_mapped(string filename, int block_size, int cache_size)
 string hex2bin(string hex)
 {
     string bin;
-    int i=0;
+    int i=hex.length()-1;
 
-    while(i < hex.length()){
-        switch(hex[i++]){
+    while(i > -1){
+        switch(hex[i--]){
             case '0': bin += "0000"; break;//index3 0000 index0
             case '1': bin += "1000"; break;//0001
             case '2': bin += "0100"; break;//0010
