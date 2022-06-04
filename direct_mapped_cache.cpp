@@ -32,22 +32,22 @@ string hex2bin(string hex)
 
     while(i < hex.length()){
         switch(hex[i++]){
-            case '0': bin += "0000"; break;
-            case '1': bin += "0001"; break;
-            case '2': bin += "0010"; break;
-            case '3': bin += "0011"; break;
-            case '4': bin += "0000"; break;
-            case '5': bin += "0101"; break;
-            case '6': bin += "0110"; break;     
-            case '7': bin += "0111"; break; 
-            case '8': bin += "1000"; break;
-            case '9': bin += "1001"; break;
-            case 'a': bin += "1010"; break;
-            case 'b': bin += "1011"; break;
-            case 'c': bin += "1100"; break;
-            case 'd': bin += "1101"; break;
-            case 'e': bin += "1110"; break;
-            case 'f': bin += "1111"; break; 
+            case '0': bin += "0000"; break;//index3 0000 index0
+            case '1': bin += "1000"; break;//0001
+            case '2': bin += "0100"; break;//0010
+            case '3': bin += "1100"; break;//0011
+            case '4': bin += "0010"; break;//0100
+            case '5': bin += "1010"; break;//0101
+            case '6': bin += "0110"; break;//0110   
+            case '7': bin += "1110"; break;//0111 
+            case '8': bin += "0001"; break;//1000
+            case '9': bin += "1001"; break;//1001
+            case 'a': bin += "0101"; break;//1010
+            case 'b': bin += "1101"; break;//1011
+            case 'c': bin += "0011"; break;//1100
+            case 'd': bin += "1011"; break;//1101
+            case 'e': bin += "0111"; break;//1110
+            case 'f': bin += "1111"; break;//1111 
         }
     }
 
