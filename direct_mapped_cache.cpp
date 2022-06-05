@@ -56,7 +56,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
   
     return (float)hit_num/total_num;
 }
-int bin2_dec(string bin){
+int bin2dec(string bin){
     int i=0, dec=0, base=1;
 
     while(i < bin.length()){
