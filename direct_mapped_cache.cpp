@@ -1,12 +1,20 @@
 #include <fstream>
 #include <string>
+#include <cmath>
 #include "direct_mapped_cache.h"
 #include "string"
 
 using namespace std;
 
+int Offset_bitNum(int);
+int Index_bitNum(int, int);
 string hex2bin(string);
-
+int bin2dec(string);
+struct cache{
+    bool valid;
+    string tag;
+    cache(){ valid = false;}
+};
 float direct_mapped(string filename, int block_size, int cache_size)
 {
     int total_num = -1;
@@ -15,15 +23,68 @@ float direct_mapped(string filename, int block_size, int cache_size)
     /*write your code HERE*/
     fstream inf;
     inf.open(filename);
-    string instr, instr_bin;
+    string address, address_bin, index_bin, tag;
+    struct cache *direct_mapped_cache = new cache [cache_size/block_size];
+    int tag_bitNum=0,offset_bitNum=0, index_bitNum=0, index_dec;
 
-    while(getline(inf, instr)){
-        cout<< instr <<endl;//
-        instr_bin = hex2bin(instr);    
-        cout<< instr_bin <<endl;//
+    offset_bitNum = Offset_bitNum(block_size);
+    index_bitNum = Index_bitNum(cache_size, block_size);
+
+    while(getline(inf, address)){
+        cout<< address <<endl;//
+        address_bin = hex2bin(address);    
+        cout<< address_bin <<endl;//
+        
+        tag_bitNum = address_bin.length()-offset_bitNum-index_bitNum;
+
+        for(int i= offset_bitNum; i<offset_bitNum+index_bitNum-1; i++) 
+            index_bin += address_bin[i];
+        for(int i=offset_bitNum+index_bitNum; i<address_bin.length()-1; i++) 
+            tag += address_bin[i];
+
+        index_dec = bin2dec(index_bin);
+        if(direct_mapped_cache[index_dec].valid==true && 
+           strcmp(tag.c_str(), direct_mapped_cache[index_dec].tag.c_str())==0) 
+           hit_num++;
+        else{
+            direct_mapped_cache[index_dec].valid = true;
+            direct_mapped_cache[index_dec].tag = tag;
+        }
+
+        total_num++;
     }
   
     return (float)hit_num/total_num;
+}
+int bin2_dec(string bin){
+    int i=0, dec=0, base=1;
+
+    while(i < bin.length()){
+        dec += base*(bin[i]-48); //ascii code of 0 is 48
+        base*=2;
+        i++;
+    }
+
+    return dec;
+}
+int Offset_bitNum(int block_size)
+{
+    int offset_bitNum;
+    switch(block_size){
+        case 16: offset_bitNum=4; break;
+        case 32: offset_bitNum=5; break;
+        case 64: offset_bitNum=6; break;
+        case 128: offset_bitNum=7; break;
+        case 256: offset_bitNum=8; break;
+    }    
+    return offset_bitNum;
+}
+int Index_bitNum(int cache_size, int block_size)
+{
+    int index_bitNum;
+    int line_Num = cache_size/block_size;
+   
+    return (int) log2(line_Num);
 }
 string hex2bin(string hex)
 {

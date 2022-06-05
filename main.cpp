@@ -8,8 +8,8 @@ using namespace std;
 int main(int argc,char *argv[])
 {
     string file = "testcase.txt";
-    int direct_map_cache_list[4] = {4096, 16384, 65536, 262144};
-    int direct_map_block_list[5] = {16, 32, 64, 128, 256};
+    int direct_map_cache_list[4] = {4096, 16384, 65536, 262144};//12b
+    int direct_map_block_list[5] = {16, 32, 64, 128, 256};//4b
     float direct_map_hit_ratio[4][5] = {0};
 
 
