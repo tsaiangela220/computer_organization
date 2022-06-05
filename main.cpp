@@ -19,8 +19,8 @@ int main(int argc,char *argv[])
     {
         for(int block_idx=0; block_idx<5; block_idx++)
         {
-            //cout<<"Cache size: "<< direct_map_cache_list[cache_idx] << endl;
-            //cout<<"Block size: "<< direct_map_block_list[block_idx] << endl;  
+            cout<<"Cache size: "<< direct_map_cache_list[cache_idx] << endl;
+            cout<<"Block size: "<< direct_map_block_list[block_idx] << endl;  
             direct_map_hit_ratio[cache_idx][block_idx] = direct_mapped(file, direct_map_block_list[block_idx], direct_map_cache_list[cache_idx]);
         }
     }
