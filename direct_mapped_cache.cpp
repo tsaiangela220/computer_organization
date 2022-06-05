@@ -1,5 +1,5 @@
 #include <fstream>
-#include <string>
+#include <cstring>
 #include <cmath>
 #include "direct_mapped_cache.h"
 #include "string"
