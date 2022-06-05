@@ -48,7 +48,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
         cout<< "tag:       "<< tag<<endl;//
 
         index_dec = bin2dec(index_bin);
-        cout<< index_dec<< endl;//
+        cout<< "indec_dec: "<< index_dec<< endl;//
         if(direct_mapped_cache[index_dec].valid==true && 
            strcmp(tag.c_str(), direct_mapped_cache[index_dec].tag.c_str())==0) 
            hit_num++;
@@ -58,6 +58,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
         }
 
         total_num++;
+        cout<< endl;
     }
   
     return (float)hit_num/total_num;
