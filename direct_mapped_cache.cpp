@@ -6,8 +6,6 @@
 
 using namespace std;
 
-int Offset_bitNum(int);
-int Index_bitNum(int, int);
 string hex2bin(string);
 int bin2dec(string);
 struct cache{
@@ -27,8 +25,8 @@ float direct_mapped(string filename, int block_size, int cache_size)
     struct cache *direct_mapped_cache = new cache [cache_size/block_size];
     int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec;
 
-    offset_bitNum = Offset_bitNum(block_size);
-    index_bitNum = Index_bitNum(cache_size, block_size);
+    offset_bitNum = log2(block_size);
+    index_bitNum = log2(cache_size/block_size);
 
     while(getline(inf, address)){
         cout<< "cache_size:    "<< cache_size<< endl;//  
@@ -38,7 +36,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
         tag_bitNum = 32-index_bitNum-offset_bitNum;
         cout<< "tag_bitNum:    "<< tag_bitNum<< endl;//
         
-        cout<< address <<endl;//
+        cout<< "address:       "<< address <<endl;//
         address_bin = hex2bin(address);    
         cout<< address_bin <<endl;//
 
@@ -77,25 +75,6 @@ int bin2dec(string bin){
     }
 
     return dec;
-}
-int Offset_bitNum(int block_size)
-{
-    int offset_bitNum;
-    switch(block_size){
-        case 16: offset_bitNum=4; break;
-        case 32: offset_bitNum=5; break;
-        case 64: offset_bitNum=6; break;
-        case 128: offset_bitNum=7; break;
-        case 256: offset_bitNum=8; break;
-    }    
-    return offset_bitNum;
-}
-int Index_bitNum(int cache_size, int block_size)
-{
-    int index_bitNum;
-    int line_Num = cache_size/block_size;
-   
-    return (int) log2(line_Num);
 }
 string hex2bin(string hex)
 {
