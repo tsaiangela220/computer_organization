@@ -35,12 +35,12 @@ float direct_mapped(string filename, int block_size, int cache_size)
         cout<< "cache_size:    "<< cache_size<< endl;//  
         cout<< "index_bitNum:  "<< index_bitNum<< endl;//
         cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
+        tag_bitNum = 32-index_bitNum-offset_bitNum;
+        cout<< "tag_bitNum:    "<< tag_bitNum<< endl;//
+        
         cout<< address <<endl;//
         address_bin = hex2bin(address);    
         cout<< address_bin <<endl;//
-        
-        tag_bitNum = address_bin.length()-offset_bitNum-index_bitNum;
-        cout<< "tag_bitNum:    "<< tag_bitNum<< endl;//
 
         for(int i= offset_bitNum; i<offset_bitNum+index_bitNum-1; i++) 
             index_bin += address_bin[i];
