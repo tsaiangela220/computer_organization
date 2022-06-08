@@ -30,7 +30,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
     offset_bitNum = Offset_bitNum(block_size);
     index_bitNum = Index_bitNum(cache_size, block_size);
     cout<< "index_bitNum:  "<< index_bitNum<< endl;//
-    cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
+    cout<< "offset_bitNum: "<< offset_bitNum<< endl<< endl;//
 
     while(getline(inf, address)){
         cout<< address <<endl;//
