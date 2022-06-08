@@ -54,13 +54,13 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         cout<< "index_dec: "<< index_dec<< endl;//
         cout<< "tag:       "<< tag<<endl;//
 
-        if(direct_mapped_cache[index_dec].valid==true && 
-           strcmp(tag.c_str(), direct_mapped_cache[index_dec].tag.c_str())==0) 
+        /*if(set_associative_cache[index_dec].valid==true && 
+           strcmp(tag.c_str(), set_associative_cache[index_dec].tag.c_str())==0) 
            hit_num++;
         else{
-            direct_mapped_cache[index_dec].valid = true;
-            direct_mapped_cache[index_dec].tag = tag;
-        }
+            set_associative_cache[index_dec].valid = true;
+            set_associative_cache[index_dec].tag = tag;
+        }*/
 
         index_bin.clear();
         tag.clear();
