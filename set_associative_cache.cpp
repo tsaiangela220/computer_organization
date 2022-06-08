@@ -2,15 +2,16 @@
 #include <cstring>
 #include <cmath>
 #include "set_associative_cache.h"
+#include "direct_mapped_cache.cpp"
 #include "string"
 
 using namespace std;
 
-struct cache{
+struct set_cache{
     bool valid;
     int time_lastUse=0;
     string tag;
-    cache(){ valid = false;}
+    set_cache(){ valid = false;}
 };
 float set_associative(string filename, int way, int block_size, int cache_size)
 {
@@ -21,11 +22,10 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     fstream inf;
     inf.open(filename);
     string address, address_bin, index_bin, tag;
-    struct cache *direct_mapped_cache = new cache [cache_size/block_size];
     int set_count = (cache_size/block_size)/way;//8 blocks 2 way -> 8/2=4 set(2 blocks / set) 
-    struct cache **set_associative_cache;
-    set_associative_cache = (cache**) malloc(sizeof(cache*)*set_count);
-    for(int i=0; i< set_count; i++) set_associative_cache[i] = (cache*) malloc(sizeof(cache)*way);
+    struct set_cache **set_associative_cache;
+    set_associative_cache = (set_cache**) malloc(sizeof(set_cache*)*set_count);
+    for(int i=0; i< set_count; i++) set_associative_cache[i] = (set_cache*) malloc(sizeof(set_cache)*way);
     int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec;
 
     offset_bitNum = log2(block_size);
