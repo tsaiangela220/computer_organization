@@ -57,8 +57,8 @@ float direct_mapped(string filename, int block_size, int cache_size)
             direct_mapped_cache[index_dec].tag = tag;
         }
 
-        index_bin = "\n";
-        tag = "\n";
+        index_bin.clear();
+        tag.clear();
         total_num++;
         cout<< endl;
     }
