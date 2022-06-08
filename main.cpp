@@ -19,8 +19,8 @@ int main(int argc,char *argv[])
     {
         for(int block_idx=0; block_idx<5; block_idx++)
         {
-            cout<<"Cache size: "<< direct_map_cache_list[cache_idx] << endl;//
-            cout<<"Block size: "<< direct_map_block_list[block_idx] << endl;  //
+            //cout<<"Cache size: "<< direct_map_cache_list[cache_idx] << endl;//
+            //cout<<"Block size: "<< direct_map_block_list[block_idx] << endl;  //
             direct_map_hit_ratio[cache_idx][block_idx] = direct_mapped(file, direct_map_block_list[block_idx], direct_map_cache_list[cache_idx]);
         }
     }
@@ -50,8 +50,8 @@ int main(int argc,char *argv[])
     {
         for(int way_ldx=0; way_ldx<4; way_ldx++)
         {     
-            //cout<<"Cache size: "<< set_ass_cache_list[cache_idx] << endl;//
-            //cout<< set_ass_way_list[way_ldx] << "-way" <<endl;//
+            cout<<"Cache size: "<< set_ass_cache_list[cache_idx] << endl;//
+            cout<< set_ass_way_list[way_ldx] << "-way" <<endl;//
             set_ass_hit_ratio[cache_idx][way_ldx] = set_associative(file, set_ass_way_list[way_ldx], set_ass_Block_size, set_ass_cache_list[cache_idx]);
         }
     }
