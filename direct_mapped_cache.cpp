@@ -61,7 +61,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
         index_bin.clear();
         tag.clear();
         total_num++;
-        cout<< endl;
+        //cout<< endl;
     }
   
     return (float)hit_num/total_num;
