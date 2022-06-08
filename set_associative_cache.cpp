@@ -10,9 +10,13 @@ string Hex2bin(string);
 int Bin2dec(string);
 struct set_cache{
     bool valid;
-    int time_lastUse=0;
+    int time_lastUse, size;
     string tag;
-    set_cache(){ valid = false;}
+    set_cache(){ 
+        valid = false; 
+        size = 0;
+        time_lastUse = 0;
+    }
 };
 float set_associative(string filename, int way, int block_size, int cache_size)
 {
@@ -23,11 +27,12 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     fstream inf;
     inf.open(filename);
     string address, address_bin, index_bin, tag;
+    bool hit=false;
     int set_count = (cache_size/block_size)/way;//8 blocks 2 way -> 8/2=4 set(2 blocks / set) 
     struct set_cache **set_associative_cache;
     set_associative_cache = (set_cache**) malloc(sizeof(set_cache*)*set_count);
     for(int i=0; i< set_count; i++) set_associative_cache[i] = (set_cache*) malloc(sizeof(set_cache)*way);
-    int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec;
+    int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec, LRU_time, LRU_index=0;
 
     offset_bitNum = log2(block_size);
     index_bitNum = log2(cache_size/(block_size*way));
@@ -55,16 +60,33 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         cout<< "index_dec: "<< index_dec<< endl;//
         cout<< "tag:       "<< tag<<endl;//
 
-        /*if(set_associative_cache[index_dec].valid==true && 
-           strcmp(tag.c_str(), set_associative_cache[index_dec].tag.c_str())==0) 
-           hit_num++;
-        else{
-            set_associative_cache[index_dec].valid = true;
-            set_associative_cache[index_dec].tag = tag;
-        }*/
+        for(int i=0; i<set_associative_cache[index_dec][0].size; i++){
+           if(strcmp(tag.c_str(), set_associative_cache[index_dec][i].tag.c_str())==0){
+               set_associative_cache[index_dec][i].time_lastUse = total_num;
+               hit_num++;
+               hit = true;
+           }  
+        }
+        if(hit == false){
+            if(set_associative_cache[index_dec][0].size < way){
+                set_associative_cache[index_dec][set_associative_cache[index_dec][0].size].tag = tag;
+                set_associative_cache[index_dec][set_associative_cache[index_dec][0].size].time_lastUse = total_num;
+                set_associative_cache[index_dec][0].size++;
+            }else{
+                for(int i=0; i<way; i++){
+                    if(set_associative_cache[index_dec][i].time_lastUse > LRU_time){
+                        LRU_time = set_associative_cache[index_dec][i].time_lastUse;
+                        LRU_index = i;
+                    }
+                }
+                set_associative_cache[index_dec][LRU_index].tag = tag;
+                set_associative_cache[index_dec][LRU_index].time_lastUse = total_num;
+            }
+        }
 
         index_bin.clear();
         tag.clear();
+        hit = false;
         total_num++;
         cout<< endl;
     }
