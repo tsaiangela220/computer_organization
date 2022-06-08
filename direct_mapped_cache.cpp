@@ -17,7 +17,7 @@ struct cache{
 };
 float direct_mapped(string filename, int block_size, int cache_size)
 {
-    int total_num = 0;
+    int total_num = -1;
     int hit_num = 0;
     
     /*write your code HERE*/
@@ -34,7 +34,7 @@ float direct_mapped(string filename, int block_size, int cache_size)
         cout<< "block_size:    "<< block_size<< endl;//
         cout<< "cache_size:    "<< cache_size<< endl;//  
         cout<< "index_bitNum:  "<< index_bitNum<< endl;//
-        cout<< "offset_bitNum: "<< offset_bitNum<< endl<< endl;//
+        cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
         cout<< address <<endl;//
         address_bin = hex2bin(address);    
         cout<< address_bin <<endl;//
