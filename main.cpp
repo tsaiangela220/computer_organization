@@ -50,8 +50,8 @@ int main(int argc,char *argv[])
     {
         for(int way_ldx=0; way_ldx<4; way_ldx++)
         {     
-            cout<<"Cache size: "<< set_ass_cache_list[cache_idx] << endl;//
-            cout<< set_ass_way_list[way_ldx] << "-way" <<endl;//
+            //cout<<"Cache size: "<< set_ass_cache_list[cache_idx] << endl;//
+            //cout<< set_ass_way_list[way_ldx] << "-way" <<endl;//
             set_ass_hit_ratio[cache_idx][way_ldx] = set_associative(file, set_ass_way_list[way_ldx], set_ass_Block_size, set_ass_cache_list[cache_idx]);
         }
     }

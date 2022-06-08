@@ -9,7 +9,7 @@ using namespace std;
 string hex2bin(string);
 int bin2dec(string);
 struct cache{
-    bool valid;
+    bool valid=false;
     string tag;
     cache(){ valid = false;}
 };
