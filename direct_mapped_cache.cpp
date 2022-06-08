@@ -31,8 +31,8 @@ float direct_mapped(string filename, int block_size, int cache_size)
     index_bitNum = Index_bitNum(cache_size, block_size);
 
     while(getline(inf, address)){
-        cout<< "block_size:    "<< block_size<< endl;//
         cout<< "cache_size:    "<< cache_size<< endl;//  
+        cout<< "block_size:    "<< block_size<< endl;//
         cout<< "index_bitNum:  "<< index_bitNum<< endl;//
         cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
         tag_bitNum = 32-index_bitNum-offset_bitNum;
@@ -102,6 +102,7 @@ string hex2bin(string hex)
     string bin;
     int i=hex.length()-1;
 
+    //e.g.MSB bf979d20 LSB(index0)
     while(i > -1){
         switch(hex[i--]){
             case '0': bin += "0000"; break;//index3 0000 index0
@@ -122,6 +123,7 @@ string hex2bin(string hex)
             case 'f': bin += "1111"; break;//1111 
         }
     }
+    while(bin.length() < 32) bin += '0';
 
     return bin;
 }
