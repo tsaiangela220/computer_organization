@@ -31,12 +31,12 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     
     int set_count = (cache_size/block_size)/way;//8 blocks 2 way -> 8/2=4 set(2 blocks / set) 
     struct set_cache **set_associative_cache = new set_cache* [set_count];//row
-    for(int i=0; i< set_count; i++) set_associative_cache[i] = new set_cache [way*(block_size/16)];//column
+    for(int i=0; i< set_count; i++) set_associative_cache[i] = new set_cache [way*(block_size/32)];//column
     
     int tag_bitNum=0, index_bitNum=0, byteOffset_bitNum=0,  blockOffset_bitNum=0, index_dec, LRU_time, LRU_index=0;
     byteOffset_bitNum = log2(block_size);
     index_bitNum = log2(cache_size/(block_size*way));
-    blockOffset_bitNum = log2(block_size / 16);
+    blockOffset_bitNum = log2(block_size / 32);
 
     while(getline(inf, address)){
         cout<< "way:                "<< way<< endl;
