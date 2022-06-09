@@ -50,6 +50,7 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         address_bin = Hex2bin(address);    
         cout<< address_bin <<endl;//
 
+        cout<<"segmentation: "<< set_associative_cache[index_dec][0].size<<endl;
         //00 000 00
         for(int i= offset_bitNum; i< offset_bitNum+index_bitNum; i++) 
             index_bin += address_bin[i];
