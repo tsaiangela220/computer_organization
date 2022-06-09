@@ -39,28 +39,28 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     index_bitNum = log2(cache_size/(block_size*way));
 
     while(getline(inf, address)){
-        cout<< "way:           "<< way<< endl;
-        cout<< "cache_size:    "<< cache_size<< endl;//  
-        cout<< "block_size:    "<< block_size<< endl;//
-        cout<< "set_count:     "<< set_count<< endl;//
-        cout<< "index_bitNum:  "<< index_bitNum<< endl;//
-        cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
+        ////cout<< "way:           "<< way<< endl;
+        ////cout<< "cache_size:    "<< cache_size<< endl;//  
+        ////cout<< "block_size:    "<< block_size<< endl;//
+        ////cout<< "set_count:     "<< set_count<< endl;//
+        ////cout<< "index_bitNum:  "<< index_bitNum<< endl;//
+        ////cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
         tag_bitNum = 32-index_bitNum-offset_bitNum;
-        cout<< "tag_bitNum:    "<< tag_bitNum<< endl;//
+        ////cout<< "tag_bitNum:    "<< tag_bitNum<< endl;//
         
-        cout<< "address:       "<< address <<endl;//
+        //cout<< "address:       "<< address <<endl;//
         address_bin = Hex2bin(address);    
-        cout<< "address:       "<< address_bin <<endl;//
+        //cout<< "address:       "<< address_bin <<endl;//
 
         //00 000 00
         for(int i= offset_bitNum; i< offset_bitNum+index_bitNum; i++) 
             index_bin += address_bin[i];
         for(int i= offset_bitNum+index_bitNum; i< address_bin.length(); i++) 
             tag += address_bin[i];
-        cout<< "index_bin: "<< index_bin<< endl;//
+        //cout<< "index_bin: "<< index_bin<< endl;//
         index_dec = Bin2dec(index_bin);
-        cout<< "index_dec: "<< index_dec<< endl;//
-        cout<< "tag:       "<< tag<<endl;//
+        //cout<< "index_dec: "<< index_dec<< endl;//
+        //cout<< "tag:       "<< tag<<endl;//
 
         for(int i=0; i<set_associative_cache[index_dec][0].size; i++){
            if(strcmp(tag.c_str(), set_associative_cache[index_dec][i].tag.c_str())==0){
@@ -91,7 +91,7 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         hit = false;
         total_num++;
         LRU_time=INT_MAX;
-        cout<< endl;
+        //cout<< endl;
     }
  
     return (float)hit_num/total_num;
