@@ -31,6 +31,7 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     int set_count = (cache_size/block_size)/way;//8 blocks 2 way -> 8/2=4 set(2 blocks / set) 
     struct set_cache **set_associative_cache;
     set_associative_cache = (set_cache**) malloc(sizeof(set_cache*)*set_count);//row
+    cout<<"set_count:         "<< set_count<< endl;
     for(int i=0; i< set_count; i++) set_associative_cache[i] = (set_cache*) malloc(sizeof(set_cache)*way);//column
     int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec, LRU_time, LRU_index=0;
 
@@ -48,9 +49,8 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         
         cout<< "address:       "<< address <<endl;//
         address_bin = Hex2bin(address);    
-        cout<< address_bin <<endl;//
+        cout<< "address:       "<< address_bin <<endl;//
 
-        cout<<"segmentation: "<< set_associative_cache[index_dec][0].size<<endl;
         //00 000 00
         for(int i= offset_bitNum; i< offset_bitNum+index_bitNum; i++) 
             index_bin += address_bin[i];
