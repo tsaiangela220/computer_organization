@@ -20,7 +20,7 @@ struct set_cache{
 };
 float set_associative(string filename, int way, int block_size, int cache_size)
 {
-    int total_num = -1;
+    int total_num = 0;
     int hit_num = 0;
 
     /*write your code HERE*/
@@ -38,10 +38,10 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     index_bitNum = log2(cache_size/(block_size*way));
 
     while(getline(inf, address)){
-        cout<< "set_count:     "<< set_count<< endl;//
         cout<< "way:           "<< way<< endl;
         cout<< "cache_size:    "<< cache_size<< endl;//  
         cout<< "block_size:    "<< block_size<< endl;//
+        cout<< "set_count:     "<< set_count<< endl;//
         cout<< "index_bitNum:  "<< index_bitNum<< endl;//
         cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
         tag_bitNum = 32-index_bitNum-offset_bitNum;
