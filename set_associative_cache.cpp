@@ -61,8 +61,8 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         cout<< "index_dec: "<< index_dec<< endl;//
         cout<< "tag:       "<< tag<<endl;//
 
-        for(int i=0; i<set_associative_cache[index_dec][0].size; i++){
-           if(strcmp(tag.c_str(), set_associative_cache[index_dec][i].tag.c_str())==0){
+        for(int i=0; i<set_count; i++){
+           if(strcmp(tag.c_str(), set_associative_cache[i][index_dec].tag.c_str())==0){
                set_associative_cache[index_dec][i].time_lastUse = total_num;
                hit_num++;
                hit = true;
