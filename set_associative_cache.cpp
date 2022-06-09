@@ -31,20 +31,22 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     
     int set_count = (cache_size/block_size)/way;//8 blocks 2 way -> 8/2=4 set(2 blocks / set) 
     struct set_cache **set_associative_cache = new set_cache* [set_count];//row
-    for(int i=0; i< set_count; i++) set_associative_cache[i] = new set_cache [way];//column
+    for(int i=0; i< set_count; i++) set_associative_cache[i] = new set_cache [way*(block_size/16)];//column
     
-    int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec, LRU_time, LRU_index=0;
-    offset_bitNum = log2(block_size);
+    int tag_bitNum=0, index_bitNum=0, byteOffset_bitNum=0,  blockOffset_bitNum=0, index_dec, LRU_time, LRU_index=0;
+    byteOffset_bitNum = log2(block_size);
     index_bitNum = log2(cache_size/(block_size*way));
+    blockOffset_bitNum = log2(block_size / 16);
 
     while(getline(inf, address)){
-        cout<< "way:           "<< way<< endl;
-        cout<< "cache_size:    "<< cache_size<< endl;//  
-        cout<< "block_size:    "<< block_size<< endl;//
-        cout<< "set_count:     "<< set_count<< endl;//
-        cout<< "index_bitNum:  "<< index_bitNum<< endl;//
-        cout<< "offset_bitNum: "<< offset_bitNum<< endl;//
-        tag_bitNum = 32-index_bitNum-offset_bitNum;
+        cout<< "way:                "<< way<< endl;
+        cout<< "cache_size:         "<< cache_size<< endl;//  
+        cout<< "block_size:         "<< block_size<< endl;//
+        cout<< "set_count:          "<< set_count<< endl;//
+        cout<< "index_bitNum:       "<< index_bitNum<< endl;//
+        cout<< "blockOffset_bitNum: "<< blockOffset_bitNum<< endl;//"
+        cout<< "byteOffset_bitNum:  "<< byteOffset_bitNum<< endl;//
+        tag_bitNum = 32-index_bitNum-blockOffset_bitNum-byteOffset_bitNum;
         cout<< "tag_bitNum:    "<< tag_bitNum<< endl;//
         
         cout<< "address:       "<< address <<endl;//
@@ -52,16 +54,16 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         cout<< "address:       "<< address_bin <<endl;//
 
         //00 000 00
-        for(int i= offset_bitNum; i< offset_bitNum+index_bitNum; i++) 
+        for(int i= byteOffset_bitNum; i< byteOffset_bitNum+index_bitNum; i++) 
             index_bin += address_bin[i];
-        for(int i= offset_bitNum+index_bitNum; i< address_bin.length(); i++) 
+        for(int i= byteOffset_bitNum+index_bitNum; i< address_bin.length(); i++) 
             tag += address_bin[i];
         cout<< "index_bin: "<< index_bin<< endl;//
         index_dec = Bin2dec(index_bin);
         cout<< "index_dec: "<< index_dec<< endl;//
         cout<< "tag:       "<< tag<<endl;//
 
-        for(int i=0; i<set_associative_cache[index_dec][0].size; i++){
+        for(int i=0; i< block_size/16; i++){
            if(strcmp(tag.c_str(), set_associative_cache[index_dec][i].tag.c_str())==0){
                set_associative_cache[index_dec][i].time_lastUse = total_num;
                hit_num++;
