@@ -33,7 +33,7 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     struct set_cache **set_associative_cache = new set_cache* [set_count];//row
     for(int i=0; i< set_count; i++) set_associative_cache[i] = new set_cache [way];//column
     
-    int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec, LRU_time, LRU_index=0;
+    int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec, LRU_time=INT_MAX, LRU_index=0;
     offset_bitNum = log2(block_size);
     index_bitNum = log2(cache_size/(block_size*way));
 
@@ -89,6 +89,7 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         tag.clear();
         hit = false;
         total_num++;
+        LRU_time=INT_MAX
         cout<< endl;
     }
  
