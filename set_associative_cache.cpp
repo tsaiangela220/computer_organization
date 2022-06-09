@@ -1,3 +1,4 @@
+#include <climits>
 #include <fstream>
 #include <cstring>
 #include <cmath>
@@ -89,7 +90,7 @@ float set_associative(string filename, int way, int block_size, int cache_size)
         tag.clear();
         hit = false;
         total_num++;
-        LRU_time=INT_MAX
+        LRU_time=INT_MAX;
         cout<< endl;
     }
  
