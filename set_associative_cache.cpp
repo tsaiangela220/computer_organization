@@ -75,7 +75,7 @@ float set_associative(string filename, int way, int block_size, int cache_size)
                 set_associative_cache[index_dec][0].size++;
             }else{
                 for(int i=0; i<way; i++){
-                    if(set_associative_cache[index_dec][i].time_lastUse > LRU_time){
+                    if(set_associative_cache[index_dec][i].time_lastUse < LRU_time){
                         LRU_time = set_associative_cache[index_dec][i].time_lastUse;
                         LRU_index = i;
                     }
