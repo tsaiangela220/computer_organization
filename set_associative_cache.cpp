@@ -28,17 +28,17 @@ float set_associative(string filename, int way, int block_size, int cache_size)
     inf.open(filename);
     string address, address_bin, index_bin, tag;
     bool hit=false;
+    
     int set_count = (cache_size/block_size)/way;//8 blocks 2 way -> 8/2=4 set(2 blocks / set) 
-    struct set_cache **set_associative_cache;
-    set_associative_cache = (set_cache**) malloc(sizeof(set_cache*)*set_count);//row
-    cout<<"set_count:         "<< set_count<< endl;
-    for(int i=0; i< set_count; i++) set_associative_cache[i] = (set_cache*) malloc(sizeof(set_cache)*way);//column
+    struct set_cache **set_associative_cache = new set_cache* [set_count];//row
+    for(int i=0; i< set_count; i++) set_associative_cache[i] = new set_cache [way];//column
+    
     int tag_bitNum=0, offset_bitNum=0, index_bitNum=0, index_dec, LRU_time, LRU_index=0;
-
     offset_bitNum = log2(block_size);
     index_bitNum = log2(cache_size/(block_size*way));
 
     while(getline(inf, address)){
+        cout<< "set_count:     "<< set_count<< endl;//
         cout<< "way:           "<< way<< endl;
         cout<< "cache_size:    "<< cache_size<< endl;//  
         cout<< "block_size:    "<< block_size<< endl;//
